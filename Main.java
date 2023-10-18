@@ -1,25 +1,40 @@
 public class Main {
-    public static int fib(int n) {
-        if (n <= 1) {
-            return n;
-        }
-
-        int fibNMinus2 = 0;
-        int fibNMinus1 = 1;
-        int fibN = 0;
-
-        for (int i = 2; i <= n; i++) {
-            fibN = fibNMinus1 + fibNMinus2;
-            fibNMinus2 = fibNMinus1;
-            fibNMinus1 = fibN;
-        }
-
-        return fibN;
-    }
 
     public static void main(String[] args) {
-        int position = 12; // Zmień tę wartość na pozycję w ciągu, którą chcesz obliczyć
-        int result = fib(position);
-        System.out.println("Liczba na pozycji " + position + " w ciągu Fibonacciego to: " + result);
+        obliczStatystyki(2, 4, 6, 8, 10);
+        obliczStatystyki(3.5, 1.5, 4.0, 2.0, 5.5);
+        obliczStatystyki(1, 2, 3);
+    }
+
+    public static void obliczStatystyki(double... liczby) {
+        if (liczby.length == 0) {
+            System.out.println("Brak danych do obliczeń.");
+            return;
+        }
+
+        double suma = 0;
+        for (double liczba : liczby) {
+            suma += liczba;
+        }
+
+        double srednia = suma / liczby.length;
+
+        // Sortowanie liczb w celu obliczenia mediany
+        java.util.Arrays.sort(liczby);
+
+        double mediana;
+        if (liczby.length % 2 == 0) {
+            int middle = liczby.length / 2;
+            //liczby[middle - 1] oznacza element po lewej stronie środka (gdy liczby są posortowane, to jest to element "niższy").
+            //liczby[middle] oznacza element po prawej stronie środka (element "wyższy").
+            mediana = (liczby[middle - 1] + liczby[middle]) / 2.0;
+        } else {
+            int middle = liczby.length / 2;
+            mediana = liczby[middle];
+        }
+
+        System.out.println("Suma: " + suma);
+        System.out.println("Średnia: " + srednia);
+        System.out.println("Mediana: " + mediana);
     }
 }
